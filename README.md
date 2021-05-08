@@ -8,8 +8,7 @@ The Front-End technologies used in this website are HTML, CSS, Javascript & Boot
 * Now Go to the terminal and run command PYTHON manage.py runserver. 
 * Open your browser and goto localhost:8000 to preview the website.
 # SOME PREVIEWS
-- Dashbord Preview
+- ###Dashbord Preview
  -![image](https://user-images.githubusercontent.com/79157735/117536176-38e1f180-b017-11eb-9a94-bc5f87740b66.png)
-- Admin page Preview
+- ###Admin page Preview
  - ![image](https://user-images.githubusercontent.com/79157735/117536314-f79e1180-b017-11eb-8f24-7907bb35a6d8.png)
-
