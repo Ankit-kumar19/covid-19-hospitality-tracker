@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="Prajwal and Ankit has created a simplified Dashboard for tracking the COVID-19 Care facilities available in Delhi. Status of facilities in different Government and Private facilities in Delhi can be easily obtained through this dashboard"
+    />
+    <meta property="og:title" content="India - COVID-19 Dashboard" />
+    <meta
+      property="og:image"
+      content="//pbs.twimg.com/profile_images/945853608389574656/REH_LpUJ_400x400.jpg"
+    />
+    <meta
+      property="og:description"
+      content="Prajwal and Ankit has created a simplified Dashboard for tracking the COVID-19 Care facilities available in Delhi. Status of facilities in different Government and Private facilities in Delhi can be easily obtained through this dashboard"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha256-aAr2Zpq8MZ+YA/D6JtRD3xtrwpEz2IqOS+pWD/7XKIw="
+      crossorigin="anonymous"
+    />
+
+    <title>COVID-19 Beds</title>
+
+    <style>
+      div.card-header {
+        font-size: 0.7em;
+      }
+
+      p.card-text {
+        font-size: 1.1em;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      .table-sticky-header {
+        overflow-y: auto;
+        height: 100px;
+      }
+
+      .table-sticky-header thead th {
+        position: sticky;
+        top: 0;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        padding: 8px 16px;
+      }
+    </style>
+  </head>
+
+  <body style="background-color: #f5f5f5ff">
+    <div class="container">
+      <div class="text-center">
+        <a href="/index.html"> </a>
+      </div>
+
+      <h4 class="text-center" id="page_title">COVID-19 ICU Beds</h4>
+      <div class="text-right">
+        <small>
+          Availability:
+          <span class="badge badge-pill table-success"
+            ><span class="vacancy_threshold">100</span> or more beds</span
+          >
+          <span class="badge badge-pill table-warning"
+            >Less than <span class="vacancy_threshold">100</span> beds</span
+          >
+          <span class="badge badge-pill table-danger">No beds</span>
+        </small>
+      </div>
+      <div class="row text-center">
+        <table class="table table-sm table-sticky-header" id="t">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Hospital</th>
+              <th scope="col">Last Updated</th>
+              <th scope="col">Total</th>
+              <th scope="col">Vacant</th>
+              <th scope="col">Oxygen left for</th>
+            </tr>
+          </thead>
+          <tbody id="hospitals_list">
+            {% for h in hptl %}
+            <tr id="a{{h.id}}">
+              <td style="display: none">a{{h.id}}</td>
+              <td>{{h.name}}</td>
+              <td>{{h.updated}}</td>
+              <td>{{h.total_icu_beds}}</td>
+              <td class="vacancy">{{h.vacant_icu_beds}}</td>
+              <td>{{h.oxygen_left}} hours</td>
+            </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
+      integrity="sha512-/DXTXr6nQodMUiq+IUJYCt2PPOUjrHJ9wFrqpJ3XkgPNOZVfMok7cRw6CSxyCQxXn6ozlESsSh1/sMCTF1rL/g=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha256-OFRAJNoaD8L3Br5lglV7VyLRf0itmoBzWUoM+Sji4/8="
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+    <!-- <script>
+       
+        $(document).ready(function(){
+          var v = parseInt($('.vacancy').text());
+          if (v < 100 && v > 0 ){
+            $(".vacancy").css({"background-color": "#ffeeba"});
+          }else if(v>100){
+            $("#vacancy").css({"background-color": "#c3e6cb"});
+          }
+          else{
+            $(".vacancy").css({"background-color": "#f5c6cb"});
+          }
+        });
+      
+      </script> -->
+
+    <script>
+      $("#t tr").each(function () {
+        var self = $(this);
+        var v = parseInt(self.find("td:eq(4)").text().trim());
+        var name = String(self.find("td:eq(0)").text().trim());
+
+        if (v < 100 && v > 0) {
+          $("#" + name).css({ "background-color": "#ffeeba" });
+        }
+        if (v >= 100) {
+          $("#" + name).css({ "background-color": "#c3e6cb" });
+        }
+        if (v == 0) {
+          $("#" + name).css({ "background-color": "#f5c6cb" });
+        }
+        console.log(typeof name, typeof v);
+      });
+    </script>
+  </body>
+</html>
